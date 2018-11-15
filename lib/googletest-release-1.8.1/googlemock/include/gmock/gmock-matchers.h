@@ -3620,7 +3620,7 @@ class ElementsAreMatcherImpl : public MatcherInterface<Container> {
   GTEST_DISALLOW_ASSIGN_(ElementsAreMatcherImpl);
 };
 
-// Connectivity matrix of (elements X matchers), in element-major order.
+// Connectivity Matrix of (elements X matchers), in element-major order.
 // Initially, there are no edges.
 // Use NextGraph() to iterate over all possible edge configurations.
 // Use Randomize() to generate a random edge configuration.
@@ -3641,7 +3641,7 @@ class GTEST_API_ MatchMatrix {
     matched_[SpaceIndex(ilhs, irhs)] = b ? 1 : 0;
   }
 
-  // Treating the connectivity matrix as a (LhsSize()*RhsSize())-bit number,
+  // Treating the connectivity Matrix as a (LhsSize()*RhsSize())-bit number,
   // adds 1 to that number; returns false if incrementing the graph left it
   // empty.
   bool NextGraph();
@@ -3660,7 +3660,7 @@ class GTEST_API_ MatchMatrix {
 
   // Each element is a char interpreted as bool. They are stored as a
   // flattened array in lhs-major order, use 'SpaceIndex()' to translate
-  // a (ilhs, irhs) matrix coordinate into an offset.
+  // a (ilhs, irhs) Matrix coordinate into an offset.
   ::std::vector<char> matched_;
 };
 
