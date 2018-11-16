@@ -1,9 +1,11 @@
+#include <cstdlib>
 #include "cell.h"
 
 Cell::Cell(bool alive) {
+    this->id = rand() % 1000 + 1;
     this->alive = alive;
     alive_neighbors = 0;
-    neighbors.reserve(8);
+    index = 0;
 }
 
 bool Cell::isAlive() {
@@ -13,8 +15,8 @@ bool Cell::isAlive() {
 void Cell::survive() {
     alive_neighbors = 0;
 
-    for (Cell &neighbor : neighbors) {
-        if(neighbor.isAlive())
+    for (int i = 0; i < 8; i++){
+        if(neighbors[i].isAlive())
             alive_neighbors++;
     }
 }
@@ -29,11 +31,23 @@ void Cell::nextGeneration() {
     }
 }
 
-void Cell::addNeighbor(Cell cell) {
-    neighbors.push_back(cell);
+void Cell::addNeighbor(Cell &cell) {
+    if(index == 0)
+        neighbors = new Cell[8];
+
+    neighbors[index] = cell;
+    index++;
 }
 
 bool Cell::operator==(Cell &other) const {
     if(this == &other) return true; //This is the pointer for
     else return false;
+}
+
+bool Cell::live() {
+    this->alive = true;
+}
+
+bool Cell::die() {
+    this->alive = false;
 }

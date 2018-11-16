@@ -1,22 +1,18 @@
 #include "game_matrix.h"
 #include <boost/numeric/ublas/matrix.hpp>
 #include <random>
+#include <ctime>
 
 void GameMatrix::initialize(int seed, int populationChance) {
-    std::default_random_engine generator;
-    std::uniform_int_distribution<int> distribution(1,100);
-
-    auto random = std::bind ( distribution, generator );
-
-    std::cout << "initializing \n";
+    srand(time(NULL));
 
     for (int row = 0; row < cells.size1 (); ++ row){
         for (int column = 0; column < cells.size2 (); ++ column) {
             Cell &cell = cells(row,column);
             if(populationChance > random())
-                cells.insert_element(row, column, Cell(true));
+                cell.live();
             else
-                cells.insert_element(row, column, Cell(false));
+                cell.die();
 
             set_neighbors(row,column, cell);
         }
@@ -25,8 +21,12 @@ void GameMatrix::initialize(int seed, int populationChance) {
 }
 
 void GameMatrix::set_south_neighbor(int row, int column, Cell &cell) {
-    if(hasSouth(row))
-        cell.addNeighbor(cells(row+1, column));
+
+    if(hasSouth(row)) {
+        Cell &southCell = cells(row+1,column);
+        cell.addNeighbor(southCell);
+
+    }
 }
 
 bool GameMatrix::hasSouth(int row) const { return cells.size1() > row + 1; }
@@ -48,8 +48,10 @@ bool GameMatrix::hasEast(int column) const {
 }
 
 void GameMatrix::set_west_neighbor(int row, int column, Cell &cell) {
-    if(hasWest(column))
-        cell.addNeighbor(cells(row, column-1));
+    if(hasWest(column)) {
+        Cell &westCell = cells(row, column - 1);
+        cell.addNeighbor(westCell);
+    }
 }
 
 bool GameMatrix::hasWest(int column) const {
@@ -94,22 +96,23 @@ void GameMatrix::set_neighbors(int row, int column, Cell &cell) {
 
 void GameMatrix::run() {
 
-
+    std::string text;
     int k = 0;
     while(k != 3) {
-
+        text = "";
         for (int row = 0; row < cells.size1(); ++row) {
-            std::cout << "" << std::endl;
+            text = text + "\n";
             for (int column = 0; column < cells.size2(); ++column) {
                 Cell &cell = cells(row, column);
                 if (cell.isAlive())
-                    std::cout << "*";
+                    text = text + "*";
                 else
-                    std::cout << ".";
+                    text = text + ".";
                 cell.survive();
             }
         }
-        std::cout << "" << std::endl;
+        text = text + "\n";
+        std::cout << text << std::endl;
         k++;
 
         for (int row = 0; row < cells.size1(); ++row) {
@@ -119,4 +122,8 @@ void GameMatrix::run() {
             }
         }
     }
+}
+
+int GameMatrix::random() {
+    return rand() % 100 + 1;
 }

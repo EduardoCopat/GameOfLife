@@ -35,4 +35,6 @@ private:
     bool hasEast(int column) const;
 
     bool hasWest(int column) const;
+
+    int random();
 };

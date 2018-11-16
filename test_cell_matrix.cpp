@@ -11,7 +11,7 @@ using namespace boost::numeric::ublas;
 
 TEST(gameMatrixTests, shouldCreateWithSize){
 
-    GameMatrix gameMatrix(3);
+    GameMatrix gameMatrix(20);
     gameMatrix.initialize(42, 25);
     gameMatrix.run();
 
