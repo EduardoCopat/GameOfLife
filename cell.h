@@ -7,7 +7,7 @@
 
 class Cell {
 public:
-    Cell(bool alive);
+    Cell(bool alive = false);
     bool isAlive();
 
     void survive();
@@ -15,6 +15,9 @@ public:
     void nextGeneration();
 
     void addNeighbor(Cell cell);
+
+    bool operator==(Cell& other) const;
+
 
 private:
     bool alive;

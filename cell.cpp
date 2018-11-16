@@ -2,6 +2,7 @@
 
 Cell::Cell(bool alive) {
     this->alive = alive;
+    alive_neighbors = 0;
     neighbors.reserve(8);
 }
 
@@ -30,4 +31,9 @@ void Cell::nextGeneration() {
 
 void Cell::addNeighbor(Cell cell) {
     neighbors.push_back(cell);
+}
+
+bool Cell::operator==(Cell &other) const {
+    if(this == &other) return true; //This is the pointer for
+    else return false;
 }
