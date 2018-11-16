@@ -10,7 +10,7 @@ include(ExternalProject)
 add_executable(game main.cpp cell.cpp cell.h game_matrix.cpp game_matrix.h)
 target_link_libraries(game Boost::boost)
 
-#target_link_libraries(game -static-libgcc -static-libstdc++)
+
 
 
 ##############
@@ -28,7 +28,6 @@ find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR} ${SDL2_GPU_INCLUDE_PATH})
 
 
-# Add SDL2 into include directories
 target_link_libraries(game ${SDL2_LIBRARY})
 
 ################################

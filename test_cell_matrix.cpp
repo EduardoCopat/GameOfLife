@@ -7,8 +7,6 @@
 
 #include <string>
 
-using namespace boost::numeric::ublas;
-
 TEST(gameMatrixTests, shouldCreateWithSize){
 
     GameMatrix gameMatrix(20);

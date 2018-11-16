@@ -44,10 +44,10 @@ bool Cell::operator==(Cell &other) const {
     else return false;
 }
 
-bool Cell::live() {
+void Cell::live() {
     this->alive = true;
 }
 
-bool Cell::die() {
+void Cell::die() {
     this->alive = false;
 }

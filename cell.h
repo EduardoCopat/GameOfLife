@@ -9,9 +9,9 @@ public:
     Cell(bool alive = false);
     bool isAlive();
 
-    bool live();
+    void live();
 
-    bool die();
+    void die();
 
     void survive();
 
